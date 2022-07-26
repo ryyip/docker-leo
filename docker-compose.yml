@@ -1,0 +1,101 @@
+version: '3'
+
+services:
+  cgi:
+    container_name: cgi
+    build: ./docker/files/cgi
+    tty: true
+    restart: always
+    expose:
+      - "9000"
+    volumes:
+      - ~/www/html:/var/www/html
+      - ./docker/log/cgi:/var/log/php-fpm
+      - ./docker/config/cgi:/usr/local/etc/php
+    depends_on:
+      - redis4
+      - mysql8
+    links:
+      - redis4:redis4
+      - mysql8:mysql8
+    networks:
+      - app-network
+  proxy:
+    container_name: proxy
+    image: nginx:1.22.0-alpine-perl
+    tty: true
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ~/www/html:/var/www/html
+      - ./docker/config/proxy/conf.d:/etc/nginx/conf.d
+      - ./docker/log/proxy:/var/log/nginx
+    depends_on:
+      - cgi
+    links:
+      - cgi
+    networks:
+    - app-network
+  mysql8:
+    container_name: mysql8
+    image: mysql:8.0.29
+    restart: always
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql
+      - ./docker/config/mysql/my.cnf:/etc/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - app-network
+  redis4:
+    container_name: redis4
+    image: redis:4.0-alpine
+    restart: always
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+    volumes:
+     - ./docker/data/redis:/data
+    command: redis-server --appendonly yes
+    networks:
+      - app-network
+  adminer:
+    image: adminer
+    restart: always
+    expose:
+      - '80'
+    ports:
+      - 8080:8080
+    environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    networks:
+      - app-network
+  # phpredisadmin:
+  #   container_name: phpredisadmin
+  #   image: erikdubbelboer/phpredisadmin
+  #   expose:
+  #     - '80'
+  #   ports:
+  #     - "8081:80"
+  #   environment:
+  #     - REDIS_1_HOST=redis
+  #     - REDIS_1_NAME=redis
+  #   depends_on:
+  #     - redis
+  #   links:
+  #     - redis:redis
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: "bridge"

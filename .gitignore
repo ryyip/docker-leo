@@ -1,0 +1,7 @@
+# data
+docker/data/mysql/
+docker/data/redis/
+
+# config
+docker/config/proxy/conf.d/*.conf 
+!docker/config/proxy/conf.d/default.conf
