@@ -17,7 +17,7 @@ RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 # php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions gd xdebug mysqli pdo_mysql redis imap tidy zip opcache swoole bcmath gmp exif mongodb soap intl apcu_bc
+    install-php-extensions gd xdebug mysqli pdo_mysql sockets redis imap tidy zip opcache swoole bcmath gmp exif mongodb soap intl apcu_bc
 
 # Composer
 RUN curl -sSL https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer

@@ -11,7 +11,7 @@ services:
     volumes:
       - ~/www/html:/var/www/html
       - ./docker/log/cgi:/var/log/php-fpm
-      - ./docker/config/cgi:/usr/local/etc/php
+      - ./docker/config/php72:/usr/local/etc/php
     depends_on:
       - redis4
       - mysql8
