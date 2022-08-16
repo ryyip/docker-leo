@@ -95,6 +95,21 @@ services:
   #     - redis:redis
   #   networks:
   #     - app-network
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.10.7-management
+    restart: always
+    ports:
+      - 25672:25672
+      - 15671:15671
+      - 15672:15672
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=123456
+    networks:
+      - app-network
 
 networks:
   app-network:

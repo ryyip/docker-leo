@@ -1,6 +1,7 @@
 # data
 docker/data/mysql/
 docker/data/redis/
+docker/data/rabbitmq/
 
 # config
 docker/config/proxy/conf.d/*.conf 
