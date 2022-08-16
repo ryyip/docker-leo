@@ -4,9 +4,9 @@ docker/data/redis/
 docker/data/rabbitmq/
 
 # config
-docker/config/proxy/conf.d/*.conf 
-!docker/config/proxy/conf.d/default.conf
+docker/config/nginx/conf.d/*.conf 
+!docker/config/nginx/conf.d/default.conf
 
 # log
-docker/log/cgi/
-docker/log/proxy/
+docker/log/php72/
+docker/log/nginx/

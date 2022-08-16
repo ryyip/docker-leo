@@ -1,16 +1,16 @@
 version: '3'
 
 services:
-  cgi:
-    container_name: cgi
-    build: ./docker/files/cgi
+  php72:
+    container_name: php72
+    build: ./docker/files/php72
     tty: true
     restart: always
     expose:
       - "9000"
     volumes:
       - ~/www/html:/var/www/html
-      - ./docker/log/cgi:/var/log/php-fpm
+      - ./docker/log/php72:/var/log/php-fpm
       - ./docker/config/php72:/usr/local/etc/php
     depends_on:
       - redis4
@@ -20,8 +20,8 @@ services:
       - mysql8:mysql8
     networks:
       - app-network
-  proxy:
-    container_name: proxy
+  nginx:
+    container_name: nginx
     image: nginx:1.22.0-alpine-perl
     tty: true
     restart: always
@@ -30,12 +30,12 @@ services:
       - "443:443"
     volumes:
       - ~/www/html:/var/www/html
-      - ./docker/config/proxy/conf.d:/etc/nginx/conf.d
-      - ./docker/log/proxy:/var/log/nginx
+      - ./docker/config/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/log/nginx:/var/log/nginx
     depends_on:
-      - cgi
+      - php72
     links:
-      - cgi
+      - php72
     networks:
     - app-network
   mysql8:
