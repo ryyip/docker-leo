@@ -8,6 +8,5 @@ docker/config/proxy/conf.d/*.conf
 !docker/config/proxy/conf.d/default.conf
 
 # log
-docker/log/cgi/conf.d/error.log
-docker/log/proxy/access.log
-docker/log/proxy/error.log
+docker/log/cgi/
+docker/log/proxy/
