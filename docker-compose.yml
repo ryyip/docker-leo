@@ -104,7 +104,7 @@ services:
       - 15671:15671
       - 15672:15672
     volumes:
-      - ./rabbitmq/data:/var/lib/rabbitmq
+      - ./docker/data/rabbitmq:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=123456
