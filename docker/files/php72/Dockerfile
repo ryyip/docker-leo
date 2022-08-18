@@ -10,6 +10,8 @@ RUN apt-get update && apt-get upgrade -y && \
     vim \
     curl \
     dnsutils \
+    iputils-ping \
+    net-tools \
     procps
 
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini

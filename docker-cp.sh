@@ -13,3 +13,5 @@ docker cp nginx:/var/log/nginx ./docker/log/nginx
 
 # Restart PHP-fpm
 kill -USR2 1
+# Restart Nginx
+nginx -s reload
