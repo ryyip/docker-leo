@@ -8,6 +8,7 @@ RUN apt-get update && apt-get upgrade -y && \
     wget \
     unzip \
     vim \
+    git \
     curl \
     dnsutils \
     iputils-ping \

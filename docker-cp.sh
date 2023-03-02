@@ -7,7 +7,10 @@ docker cp php72:/usr/local/etc/php/php.ini ./docker/config/php72/php.ini
 docker cp php72:/usr/local/etc/php/php.ini-production ./docker/config/php72/php.ini-production
 docker cp php72:/usr/local/etc/php/php.ini-development ./docker/config/php72/php.ini-development
 docker cp php72:/usr/local/etc/php/conf.d ./docker/config/php72/conf.d
-
+# php72 service .ssh
+docker cp php72:/root/.ssh/id_rsa ~/docker-compose/docker-leo/docker/config/php72ssh/id_rsa
+docker cp php72:/root/.ssh/id_rsa.pub ~/docker-compose/docker-leo/docker/config/php72ssh/id_rsa.pub
+# log
 docker cp php72:/var/log/php-fpm/error.log ./docker/log/php72/error.log
 docker cp nginx:/var/log/nginx ./docker/log/nginx
 
